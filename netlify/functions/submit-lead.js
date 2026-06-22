@@ -66,6 +66,7 @@ exports.handler = async (event) => {
         whatsapp,
         zona,
         mensaje,
+        acepto_politicas: data.acepto_politicas === true,
         origen: 'landing',
         user_agent: (event.headers['user-agent'] || '').slice(0, 400),
       }),

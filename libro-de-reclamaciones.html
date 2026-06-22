@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Libro de Reclamaciones — Rental Smart</title>
+<meta name="description" content="Libro de Reclamaciones virtual de Rental Smart Perú, conforme al Código de Protección y Defensa del Consumidor." />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/geist-font@1.3.1/dist/geist-mono.css" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/legal.css" />
+</head>
+<body>
+<header class="legal-nav">
+  <div class="legal-nav-inner">
+    <a href="/" class="logo"><span class="logo-icon">R<span>S</span></span><span class="logo-text">rental <b>smart</b></span><span class="logo-dot"></span></a>
+    <a href="/" class="back">← Volver al inicio</a>
+  </div>
+</header>
+
+<main class="legal-doc">
+  <span class="eyebrow">Conforme a la Ley N° 29571</span>
+  <h1>Libro de Reclamaciones</h1>
+  <p>Registra aquí tu reclamo o queja. Los campos marcados con <span style="color:var(--terracotta)">*</span> son obligatorios. Al enviar, te mostraremos el código de tu hoja y enviaremos una copia a tu correo electrónico.</p>
+
+  <!-- Caja de éxito (oculta hasta enviar) -->
+  <div class="success-box" id="successBox" style="display:none">
+    <h2>✓ Reclamo registrado</h2>
+    <p>Tu reclamo ha sido registrado con el código <span class="code-badge" id="okCode">—</span></p>
+    <p>Hemos enviado una copia a tu correo. Te responderemos en un plazo máximo de <strong>15 días hábiles</strong>. Gracias por escribirnos.</p>
+  </div>
+
+  <form id="reclamoForm">
+    <!-- 1. Datos del proveedor -->
+    <div class="form-card">
+      <p class="fieldset-title">1 · Datos del proveedor</p>
+      <div class="provider-data">
+        <div><strong>Razón social:</strong> RENTAL SMART PERU</div>
+        <div><strong>Sitio web:</strong> https://rentalsmart-peru.com/</div>
+        <div><strong>Correo:</strong> rentalsmart.peru@gmail.com</div>
+      </div>
+    </div>
+
+    <!-- 2. Hoja -->
+    <div class="form-card">
+      <p class="fieldset-title">2 · Hoja de reclamación</p>
+      <div class="row-2">
+        <div class="field"><label>N° de Hoja</label><input type="text" value="Se generará automáticamente al registrar" disabled /></div>
+        <div class="field"><label>Fecha y hora</label><input type="text" id="fechaAuto" disabled /></div>
+      </div>
+    </div>
+
+    <!-- 3. Consumidor -->
+    <div class="form-card">
+      <p class="fieldset-title">3 · Identificación del consumidor</p>
+      <div class="row-2">
+        <div class="field"><label>Nombres y apellidos <span class="req">*</span></label><input type="text" name="nombre" required /></div>
+        <div class="field"><label>Documento de identidad (DNI/CE) <span class="req">*</span></label><input type="text" name="documento" required /></div>
+      </div>
+      <div class="row-2">
+        <div class="field"><label>Teléfono <span class="req">*</span></label><input type="tel" name="telefono" required /></div>
+        <div class="field"><label>Correo electrónico <span class="req">*</span></label><input type="email" name="email" required /><span class="hint">A este correo enviaremos la copia.</span></div>
+      </div>
+      <div class="field">
+        <label>¿Eres menor de edad?</label>
+        <div class="choice">
+          <label><input type="radio" name="menor" value="No" checked /> No</label>
+          <label><input type="radio" name="menor" value="Si" /> Sí</label>
+        </div>
+      </div>
+      <div class="field" id="apoderadoWrap" style="display:none">
+        <label>Datos del apoderado (nombre y documento)</label>
+        <input type="text" name="apoderado" placeholder="Nombre completo y documento del padre/madre/tutor" />
+      </div>
+    </div>
+
+    <!-- 4. Bien contratado -->
+    <div class="form-card">
+      <p class="fieldset-title">4 · Identificación del bien contratado</p>
+      <div class="field">
+        <label>Tipo</label>
+        <div class="choice">
+          <label><input type="radio" name="tipo_bien" value="Producto" /> Producto</label>
+          <label><input type="radio" name="tipo_bien" value="Servicio" checked /> Servicio</label>
+        </div>
+      </div>
+      <div class="field"><label>Monto reclamado (S/)</label><input type="number" name="monto" min="0" step="0.01" placeholder="0.00" /></div>
+      <div class="field"><label>Descripción del bien o servicio <span class="req">*</span></label><textarea name="descripcion_bien" required></textarea></div>
+    </div>
+
+    <!-- 5. Detalle de la reclamación -->
+    <div class="form-card">
+      <p class="fieldset-title">5 · Detalle de la reclamación</p>
+      <div class="field">
+        <label>Tipo <span class="req">*</span></label>
+        <div class="choice">
+          <label><input type="radio" name="tipo_reclamo" value="Reclamo" required /> Reclamo <span class="hint">(disconformidad con el producto/servicio)</span></label>
+          <label><input type="radio" name="tipo_reclamo" value="Queja" /> Queja <span class="hint">(disconformidad con la atención)</span></label>
+        </div>
+      </div>
+      <div class="field"><label>Detalle / descripción <span class="req">*</span></label><textarea name="detalle" required></textarea></div>
+      <div class="field"><label>Pedido del consumidor <span class="req">*</span></label><textarea name="pedido" required></textarea></div>
+    </div>
+
+    <!-- 6. Acciones del proveedor (lo completa la empresa) -->
+    <div class="form-card">
+      <p class="fieldset-title">6 · Acciones adoptadas por el proveedor</p>
+      <div class="field"><textarea disabled placeholder="Este campo lo completa Rental Smart al responder tu reclamo."></textarea></div>
+    </div>
+
+    <!-- 7. Consentimiento -->
+    <label class="consent">
+      <input type="checkbox" name="acepta_privacidad" id="acepta" required />
+      <span>Acepto la <a href="/privacidad" target="_blank" rel="noopener">Política de Privacidad</a> y el tratamiento de mis datos. <span class="req">*</span></span>
+    </label>
+
+    <!-- honeypot -->
+    <input type="text" name="company" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+    <button type="submit" class="btn-accent" id="submitBtn">Enviar reclamo</button>
+    <div class="form-msg" id="formMsg" role="status" aria-live="polite"></div>
+  </form>
+</main>
+
+<footer class="legal-foot">
+  © <span id="y"></span> Rental Smart ·
+  <a href="/terminos-y-condiciones">Términos y Condiciones</a> ·
+  <a href="/privacidad">Privacidad</a> ·
+  <a href="/cookies">Cookies</a>
+</footer>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // Fecha y hora automática (visual)
+  (function(){
+    var d = new Date();
+    document.getElementById('fechaAuto').value = d.toLocaleString('es-PE', {dateStyle:'long', timeStyle:'short'});
+  })();
+
+  // Mostrar datos del apoderado si es menor
+  document.querySelectorAll('input[name="menor"]').forEach(function(r){
+    r.addEventListener('change', function(){
+      document.getElementById('apoderadoWrap').style.display = (this.value === 'Si') ? 'flex' : 'none';
+    });
+  });
+
+  // Envío
+  var form = document.getElementById('reclamoForm');
+  var msg = document.getElementById('formMsg');
+  var btn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    msg.className = 'form-msg'; msg.textContent = '';
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    var fd = new FormData(form);
+    var data = Object.fromEntries(fd.entries());
+    data.acepta_privacidad = form.acepta.checked;
+
+    btn.disabled = true; var t = btn.textContent; btn.textContent = 'Enviando...';
+    try {
+      var res = await fetch('/.netlify/functions/submit-reclamo', {
+        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)
+      });
+      var out = await res.json();
+      if (!res.ok || !out.ok) throw new Error(out.error || 'error');
+      document.getElementById('okCode').textContent = 'N° ' + out.codigo;
+      document.getElementById('successBox').style.display = 'block';
+      form.style.display = 'none';
+      window.scrollTo({top:0, behavior:'smooth'});
+    } catch (err) {
+      msg.className = 'form-msg err';
+      msg.innerHTML = 'No pudimos registrar tu reclamo. Intenta de nuevo o escríbenos a <a href="mailto:rentalsmart.peru@gmail.com">rentalsmart.peru@gmail.com</a>.';
+      btn.disabled = false; btn.textContent = t;
+    }
+  });
+</script>
+</body>
+</html>

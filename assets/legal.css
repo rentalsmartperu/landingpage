@@ -1,0 +1,72 @@
+/* Estilos compartidos para páginas legales y formularios — Rental Smart */
+:root{
+  --midnight:#1A2538; --terracotta:#C66B3D; --cream:#F5F0E6; --near-black:#0A0A0E;
+  --warm-gray:#7A716A; --border:#DCD5C8;
+  --shadow-md:0 4px 12px rgba(26,37,56,.10); --shadow-lg:0 12px 32px rgba(26,37,56,.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',system-ui,-apple-system,sans-serif;background:var(--cream);color:var(--midnight);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--terracotta);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:'Geist Mono',ui-monospace,monospace}
+
+/* Nav */
+.legal-nav{background:var(--midnight);position:sticky;top:0;z-index:10}
+.legal-nav-inner{max-width:900px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:inline-flex;align-items:center;gap:8px;font-size:20px;color:var(--cream);white-space:nowrap}
+.logo:hover{text-decoration:none}
+.logo-icon{width:32px;height:32px;border-radius:8px;background:var(--cream);color:var(--midnight);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.logo-icon span{color:var(--terracotta)}
+.logo-text b{font-weight:700}
+.logo-dot{width:6px;height:6px;border-radius:50%;background:var(--terracotta);align-self:flex-end;margin-bottom:5px}
+.back{color:rgba(245,240,230,.8);font-size:14px}
+.back:hover{color:var(--cream)}
+
+/* Documento legal */
+.legal-doc{max-width:780px;margin:0 auto;padding:56px 24px 80px}
+.legal-doc .eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta)}
+.legal-doc h1{font-size:clamp(28px,5vw,40px);font-weight:700;letter-spacing:-.02em;margin:12px 0 8px;line-height:1.15}
+.legal-doc h2{font-size:21px;font-weight:700;margin:34px 0 10px;letter-spacing:-.01em}
+.legal-doc h3{font-size:17px;font-weight:600;margin:22px 0 8px}
+.legal-doc p{margin:0 0 14px;color:#3a4252;font-size:16px}
+.legal-doc ul{margin:0 0 14px 22px;color:#3a4252;font-size:16px}
+.legal-doc li{margin:0 0 6px}
+.legal-doc strong{color:var(--midnight)}
+.legal-doc .updated{margin-top:36px;font-family:'Geist Mono',monospace;font-size:12px;color:var(--warm-gray);border-top:1px solid var(--border);padding-top:18px}
+.legal-doc .datatable{margin:0 0 14px;font-size:16px;color:#3a4252}
+.legal-doc .datatable div{padding:3px 0}
+
+/* Footer */
+.legal-foot{background:var(--near-black);color:rgba(245,240,230,.6);font-size:13px;text-align:center;padding:28px 24px}
+.legal-foot a{color:rgba(245,240,230,.85)}
+
+/* ====== Formularios (Libro de Reclamaciones) ====== */
+.form-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px;margin:22px 0;box-shadow:var(--shadow-md)}
+.form-card h2{margin-top:0}
+.fieldset-title{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--terracotta);margin:0 0 16px}
+.provider-data{background:var(--cream);border-radius:10px;padding:16px 18px;font-size:15px;color:#3a4252}
+.provider-data div{padding:2px 0}
+.code-badge{display:inline-block;background:var(--midnight);color:var(--cream);font-family:'Geist Mono',monospace;border-radius:8px;padding:8px 14px;font-size:15px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.field label{font-size:14px;font-weight:500;color:var(--midnight)}
+.field .req{color:var(--terracotta)}
+.field input[type=text],.field input[type=email],.field input[type=tel],.field input[type=number],.field select,.field textarea{
+  font-family:'Outfit',sans-serif;font-size:15px;color:var(--midnight);background:#fff;border:1px solid var(--border);border-radius:8px;padding:11px 13px;width:100%;transition:border-color .2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--terracotta)}
+.field textarea{min-height:90px;resize:vertical}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.choice{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.choice label{display:inline-flex;align-items:center;gap:7px;font-weight:400;cursor:pointer}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#3a4252;margin:8px 0 18px}
+.consent input{margin-top:3px;flex-shrink:0;width:18px;height:18px;accent-color:var(--terracotta)}
+.btn-accent{background:var(--terracotta);color:var(--cream);border:none;border-radius:12px;padding:15px 30px;font-size:15px;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;transition:filter .2s,transform .15s}
+.btn-accent:hover{filter:brightness(1.06)}
+.btn-accent:active{transform:scale(.98)}
+.btn-accent:disabled{opacity:.5;cursor:not-allowed}
+.form-msg{font-size:14px;margin-top:14px;min-height:20px}
+.form-msg.ok{color:#2e7d32}
+.form-msg.err{color:#c0392b}
+.success-box{background:#fff;border:1px solid var(--border);border-left:4px solid #2e7d32;border-radius:12px;padding:26px;margin:22px 0}
+.success-box h2{margin-top:0;color:#2e7d32}
+.hint{font-size:13px;color:var(--warm-gray);margin-top:6px}
+@media(max-width:640px){.row-2{grid-template-columns:1fr}}

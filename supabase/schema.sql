@@ -27,3 +27,6 @@ alter table public.leads enable row level security;
 -- (No creamos políticas públicas a propósito: con RLS activo y sin políticas,
 --  el acceso anónimo queda bloqueado. La función serverless usa service_role,
 --  que ignora RLS por diseño.)
+
+-- Consentimiento de Política de Privacidad (checkbox del formulario de contacto)
+alter table public.leads add column if not exists acepto_politicas boolean default false;

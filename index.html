@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rental Smart — gestión de Airbnb en Surco y San Borja</title>
+<meta name="description" content="Gestionamos tu apartamento de corta estancia en Airbnb en Surco y San Borja. Mayor rentabilidad, cuentas claras y cero preocupaciones para el propietario." />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Rental Smart — smart short-term rental management" />
+<meta property="og:description" content="Tu departamento en Airbnb, rentabilizando sin que tengas que hacer nada. Surco y San Borja." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="/assets/og-image.png" />
+<meta property="og:locale" content="es_PE" />
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png" />
+<link rel="apple-touch-icon" href="/assets/favicon-192.png" />
+
+<!-- Fonts: Outfit + Instrument Serif (Google) · Geist Mono (CDN) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/geist-font@1.3.1/dist/geist-mono.css" rel="stylesheet" />
+<!-- Iconos: Phosphor -->
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+
+<style>
+  :root {
+    --midnight: #1A2538;
+    --terracotta: #C66B3D;
+    --cream: #F5F0E6;
+    --near-black: #0A0A0E;
+    --warm-gray: #7A716A;
+    --border: #DCD5C8;
+    --shadow-sm: 0 1px 3px rgba(26,37,56,0.06);
+    --shadow-md: 0 4px 12px rgba(26,37,56,0.10);
+    --shadow-lg: 0 12px 32px rgba(26,37,56,0.15);
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    background: var(--cream);
+    color: var(--midnight);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+  .serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; }
+
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+  .eyebrow {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--terracotta);
+  }
+  .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+  .lead { font-size: 18px; color: var(--warm-gray); max-width: 640px; }
+
+  /* ====== Buttons ====== */
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500;
+    text-decoration: none; cursor: pointer; border: none; transition: all 200ms var(--ease); }
+  .btn-primary { background: var(--midnight); color: var(--cream); padding: 15px 30px; border-radius: 12px; }
+  .btn-primary:hover { background: var(--near-black); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-secondary { background: transparent; color: var(--midnight); padding: 14px 28px; border-radius: 12px;
+    border: 2px solid var(--midnight); }
+  .btn-secondary:hover { background: var(--midnight); color: var(--cream); }
+  .btn-accent { background: var(--terracotta); color: var(--cream); padding: 16px 34px; border-radius: 12px; font-weight: 600; }
+  .btn-accent:hover { filter: brightness(0.95); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+  /* ====== NAV ====== */
+  nav { position: sticky; top: 0; z-index: 50; background: rgba(245,240,230,0.85);
+    backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 32px; max-width: 1180px; margin: 0 auto; }
+  .logo { display: inline-flex; align-items: center; gap: 8px; font-size: 21px;
+    letter-spacing: -0.02em; text-decoration: none; color: var(--midnight); white-space: nowrap; }
+  .logo-icon { width: 34px; height: 34px; border-radius: 8px; background: var(--midnight);
+    color: var(--cream); display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; flex-shrink: 0; }
+  .logo-icon span { color: var(--terracotta); }
+  .logo-text b { font-weight: 700; }
+  .logo-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--terracotta);
+    margin-left: 3px; align-self: flex-end; margin-bottom: 6px; flex-shrink: 0; }
+  .nav-links { display: flex; gap: 30px; align-items: center; list-style: none; }
+  .nav-links a { color: var(--midnight); text-decoration: none; font-size: 15px; transition: color 200ms var(--ease); }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-cta { background: var(--midnight); color: var(--cream); padding: 10px 20px;
+    border-radius: 12px; font-size: 14px; font-weight: 500; text-decoration: none; transition: all 200ms var(--ease); }
+  .nav-cta:hover { background: var(--near-black); }
+  .nav-toggle { display: none; background: none; border: none; font-size: 26px; color: var(--midnight); cursor: pointer; }
+
+  /* ====== HERO ====== */
+  .hero { padding: 96px 0 110px; position: relative; overflow: hidden; }
+  .hero-grid { position: absolute; inset: 0; opacity: 0.5; pointer-events: none;
+    background-image: radial-gradient(var(--border) 1px, transparent 1px); background-size: 28px 28px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 70% 20%, #000 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse 70% 60% at 70% 20%, #000 0%, transparent 70%); }
+  .hero-inner { position: relative; max-width: 820px; }
+  .hero h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 700; line-height: 1.08;
+    letter-spacing: -0.03em; margin: 18px 0 22px; }
+  .hero h1 .accent { color: var(--terracotta); }
+  .hero p { font-size: clamp(17px, 2.2vw, 20px); color: var(--warm-gray); max-width: 600px; margin-bottom: 36px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-coords { position: absolute; right: 32px; bottom: 28px; font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: var(--warm-gray); letter-spacing: 0.08em; }
+
+  /* ====== SECTIONS base ====== */
+  section { scroll-margin-top: 80px; }
+  .pad { padding: 90px 0; }
+  .section-head { max-width: 680px; margin-bottom: 52px; }
+  .section-head .section-title { margin: 14px 0 16px; }
+
+  /* ====== POR QUÉ (3 cards) ====== */
+  .why { background: var(--cream); }
+  .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 32px;
+    box-shadow: var(--shadow-sm); transition: all 250ms var(--ease); }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .card-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--cream);
+    display: flex; align-items: center; justify-content: center; font-size: 26px; color: var(--midnight);
+    margin-bottom: 20px; }
+  .card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .card p { color: var(--warm-gray); font-size: 15.5px; }
+
+  /* ====== DISTINTOS ====== */
+  .distinct { background: var(--midnight); color: var(--cream); }
+  .distinct .eyebrow { color: var(--terracotta); }
+  .distinct .section-title { color: var(--cream); }
+  .distinct .lead { color: rgba(245,240,230,0.72); }
+  .distinct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 48px; margin-top: 8px; }
+  .distinct-item { display: flex; gap: 16px; padding: 18px 0; border-top: 1px solid rgba(245,240,230,0.14); }
+  .distinct-item i { color: var(--terracotta); font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .distinct-item p { font-size: 15.5px; color: rgba(245,240,230,0.9); }
+
+  /* ====== CÓMO FUNCIONA ====== */
+  .how { background: var(--cream); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .step { position: relative; }
+  .step-num { font-family: 'Geist Mono', monospace; font-size: 13px; letter-spacing: 0.1em;
+    color: var(--terracotta); margin-bottom: 14px; }
+  .step h3 { font-size: 21px; font-weight: 700; margin-bottom: 10px; }
+  .step p { color: var(--warm-gray); font-size: 15.5px; }
+  .beach-note { margin-top: 48px; background: #fff; border: 1px solid var(--border); border-left: 3px solid var(--terracotta);
+    border-radius: 12px; padding: 24px 28px; display: flex; align-items: center; gap: 16px; }
+  .beach-note i { font-size: 28px; color: var(--terracotta); }
+  .beach-note b { font-weight: 700; }
+
+  /* ====== DISEÑO INTERIORES ====== */
+  .interiors { background: var(--midnight); color: var(--cream); }
+  .interiors-inner { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center; }
+  .interiors .eyebrow { color: var(--terracotta); }
+  .interiors h2 { font-size: clamp(26px, 3.5vw, 38px); font-weight: 700; line-height: 1.18; letter-spacing: -0.02em; margin: 14px 0 18px; }
+  .interiors p { color: rgba(245,240,230,0.82); font-size: 16.5px; margin-bottom: 18px; }
+  .interiors-quote { background: rgba(245,240,230,0.06); border: 1px solid rgba(245,240,230,0.16);
+    border-radius: 16px; padding: 32px; }
+  .interiors-quote .serif { font-size: 24px; line-height: 1.35; color: var(--cream); }
+  .interiors-quote .label { font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.1em;
+    color: var(--terracotta); margin-top: 18px; display: block; }
+
+  /* ====== CONFIANZA ====== */
+  .trust { background: var(--cream); }
+  .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+  .trust-item i { font-size: 30px; color: var(--midnight); margin-bottom: 16px; display: block; }
+  .trust-item h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+  .trust-item p { color: var(--warm-gray); font-size: 15.5px; }
+
+  /* ====== CONTACTO ====== */
+  .contact { background: var(--midnight); color: var(--cream); }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .contact .eyebrow { color: var(--terracotta); }
+  .contact h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; margin: 14px 0 18px; color: var(--cream); }
+  .contact-copy p { color: rgba(245,240,230,0.82); font-size: 16.5px; margin-bottom: 28px; max-width: 440px; }
+  .contact-alt { font-size: 15px; color: rgba(245,240,230,0.7); }
+  .contact-alt a { color: var(--terracotta); text-decoration: none; }
+  .contact-alt a:hover { text-decoration: underline; }
+
+  .contact-form { background: var(--cream); border-radius: 16px; padding: 36px; box-shadow: var(--shadow-lg); }
+  .form-field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
+  .form-field label { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--warm-gray); }
+  .form-field input, .form-field select, .form-field textarea {
+    font-family: 'Outfit', sans-serif; font-size: 15px; color: var(--midnight); background: #fff;
+    border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; width: 100%;
+    transition: border-color 200ms var(--ease); }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+    outline: none; border-color: var(--terracotta); }
+  .form-field textarea { min-height: 96px; resize: vertical; }
+  .hp { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; }
+  .form-msg { font-size: 14px; margin-top: 14px; min-height: 20px; }
+  .form-msg.ok { color: #2e7d32; }
+  .form-msg.err { color: #c0392b; }
+  .form-note { font-size: 12px; color: var(--warm-gray); margin-top: 14px; }
+
+  /* ====== FOOTER ====== */
+  footer { background: var(--near-black); color: var(--cream); padding: 56px 0 32px; }
+  .footer-inner { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+  .footer-brand { max-width: 280px; }
+  .footer-brand .logo { color: var(--cream); }
+  .footer-brand .logo-text { color: var(--cream); }
+  .footer-tag { font-family: 'Geist Mono', monospace; font-size: 12px; color: rgba(245,240,230,0.55);
+    margin-top: 14px; letter-spacing: 0.04em; }
+  .footer-cols { display: flex; gap: 64px; flex-wrap: wrap; }
+  .footer-col h4 { font-size: 13px; font-family: 'Geist Mono', monospace; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(245,240,230,0.5); margin-bottom: 14px; }
+  .footer-col a, .footer-col span { display: block; color: rgba(245,240,230,0.85); text-decoration: none;
+    font-size: 15px; margin-bottom: 10px; }
+  .footer-col a:hover { color: var(--terracotta); }
+  .footer-bottom { border-top: 1px solid rgba(245,240,230,0.12); margin-top: 40px; padding-top: 20px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+    font-size: 13px; color: rgba(245,240,230,0.5); }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 900px) {
+    .cards-3, .steps, .trust-grid, .distinct-grid { grid-template-columns: 1fr; }
+    .interiors-inner, .contact-inner { grid-template-columns: 1fr; gap: 36px; }
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+    .nav-links.open { display: flex; position: absolute; top: 62px; right: 16px; left: 16px;
+      flex-direction: column; gap: 18px; background: var(--cream); border: 1px solid var(--border);
+      border-radius: 12px; padding: 22px; box-shadow: var(--shadow-md); }
+    .pad { padding: 64px 0; }
+    .hero { padding: 64px 0 72px; }
+    .hero-coords { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== NAV ====== -->
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="logo" aria-label="Rental Smart inicio">
+      <span class="logo-icon">R<span>S</span></span>
+      <span class="logo-text">rental <b>smart</b></span>
+      <span class="logo-dot"></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#por-que">Por qué</a></li>
+      <li><a href="#distintos">Diferencia</a></li>
+      <li><a href="#como">Cómo funciona</a></li>
+      <li><a href="#confianza">Confianza</a></li>
+      <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menú"><i class="ph ph-list"></i></button>
+  </div>
+</nav>
+
+<!-- ====== HERO ====== -->
+<header class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="container hero-inner">
+    <span class="eyebrow">Gestión de Airbnb · Surco y San Borja</span>
+    <h1>Tu departamento de corta estancia en Airbnb, <span class="accent">rentabilizando</span> sin que tú tengas que hacer nada.</h1>
+    <p>Gestionamos tu apartamento de corta estancia en Airbnb en Surco y San Borja. Cuentas claras, mayor rentabilidad y cero preocupaciones para ti como propietario.</p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn btn-primary">Quiero saber más</a>
+      <a href="#contacto" class="btn btn-secondary">Calcular mi rentabilidad <i class="ph ph-arrow-right"></i></a>
+    </div>
+  </div>
+  <span class="hero-coords">lat -12.1167° · lon -76.9933° · lima, pe</span>
+</header>
+
+<!-- ====== POR QUÉ ====== -->
+<section class="why pad" id="por-que">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Propuesta de valor</span>
+      <h2 class="section-title">¿Por qué Rental Smart?</h2>
+      <p class="lead">Somos especialistas en gestión de apartamentos de corta estancia en Airbnb, en Santiago de Surco y San Borja. Más de 5 años de experiencia real en el mercado, con un equipo formado en el mundo corporativo que decidió hacer las cosas bien: con orden, transparencia y resultados.</p>
+    </div>
+    <div class="cards-3">
+      <div class="card">
+        <div class="card-icon"><i class="ph ph-trend-up"></i></div>
+        <h3>Mayor rentabilidad</h3>
+        <p>Genera entre 40% y 70% más que un alquiler convencional gracias a nuestra estrategia de precios dinámica.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="ph ph-receipt"></i></div>
+        <h3>Cuentas claras siempre</h3>
+        <p>Recibes un reporte mensual detallado con cada ingreso y gasto. Sin letra pequeña. Sin sorpresas.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="ph ph-shield-check"></i></div>
+        <h3>Gestión total sin estrés</h3>
+        <p>Nos encargamos de todo: atención a huéspedes, limpieza, check-in y cobros. Tú solo cobras.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== DISTINTOS ====== -->
+<section class="distinct pad" id="distintos">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Lo que nos hace distintos</span>
+      <h2 class="section-title">Especialistas en Surco. No gestores genéricos.</h2>
+      <p class="lead">Conocemos Santiago de Surco como nadie. Sabemos qué huéspedes llegan, cuánto están dispuestos a pagar por noche y cómo posicionar tu apartamento para que siempre esté ocupado al mejor precio.</p>
+    </div>
+    <div class="distinct-grid">
+      <div class="distinct-item"><i class="ph ph-map-pin"></i><p>Más de 5 años gestionando apartamentos de corta estancia en Airbnb, exclusivamente en Surco y San Borja.</p></div>
+      <div class="distinct-item"><i class="ph ph-currency-circle-dollar"></i><p>Ticket promedio por noche de los más altos de Lima, gracias a nuestra estrategia de precios diferenciada.</p></div>
+      <div class="distinct-item"><i class="ph ph-chat-circle-dots"></i><p>Atención al huésped con inteligencia artificial: tasa de respuesta inferior a 1 minuto, las 24 horas del día.</p></div>
+      <div class="distinct-item"><i class="ph ph-lock-key"></i><p>Trabajamos con proveedores de smart lock: acceso digital por código, estancias seguras y controladas sin entrega física de llaves.</p></div>
+      <div class="distinct-item"><i class="ph ph-briefcase"></i><p>Equipo con más de 10 años de experiencia en el sector corporativo, aplicado a la gestión inmobiliaria.</p></div>
+      <div class="distinct-item"><i class="ph ph-umbrella"></i><p>También gestionamos casas de playa en temporada de verano para propietarios en la costa peruana.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CÓMO FUNCIONA ====== -->
+<section class="how pad" id="como">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">¿Cómo funciona?</span>
+      <h2 class="section-title">Empieza a rentabilizar tu departamento en 3 pasos</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01 — Nos reunimos</div>
+        <h3>Nos reunimos</h3>
+        <p>Evaluamos tu departamento, te explicamos el potencial de rentabilidad y respondemos todas tus preguntas. Sin compromiso.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02 — Lo preparamos</div>
+        <h3>Lo preparamos todo</h3>
+        <p>Nos encargamos del alta en Airbnb, las fotos, los textos del anuncio, la configuración de smart lock y la estrategia de precios.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03 — Tú cobras</div>
+        <h3>Tú cobras, nosotros gestionamos</h3>
+        <p>Atendemos a los huéspedes, coordinamos limpieza y check-in. Tú eliges cuándo cobrar: quincenal, mensual, o incluso 1 día después del check-in de cada huésped. Siempre con informe completo.</p>
+      </div>
+    </div>
+    <div class="beach-note">
+      <i class="ph ph-umbrella"></i>
+      <div><b>¿Tienes casa de playa?</b> También gestionamos propiedades en la costa durante la temporada de verano. Pregúntanos cómo.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== DISEÑO INTERIORES ====== -->
+<section class="interiors pad" id="interiores">
+  <div class="container">
+    <div class="interiors-inner">
+      <div>
+        <span class="eyebrow">Diseño e implementación de interiores</span>
+        <h2>¿Apartamento de estreno o sin equipar?</h2>
+        <p>También ofrecemos diseño e implementación de interiores para que tu propiedad esté lista para Airbnb desde el primer día. Mobiliario, accesorios, ambientación y fotografía profesional — todo coordinado por nosotros.</p>
+      </div>
+      <div class="interiors-quote">
+        <span class="serif">Paga en cuotas mientras tu apartamento genera rentabilidad. El activo se paga a sí mismo.</span>
+        <span class="label">SIN DESEMBOLSO INICIAL COMPLETO</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CONFIANZA ====== -->
+<section class="trust pad" id="confianza">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Confianza y transparencia</span>
+      <h2 class="section-title">Nuestro compromiso contigo</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <i class="ph ph-handshake"></i>
+        <h3>Honestidad ante todo</h3>
+        <p>No prometemos cifras irreales. Te damos una estimación honesta basada en datos reales del mercado de Surco. Si hay un problema con tu apartamento, te lo decimos primero.</p>
+      </div>
+      <div class="trust-item">
+        <i class="ph ph-file-text"></i>
+        <h3>Reporte mensual transparente</h3>
+        <p>Cada mes recibes un estado de cuenta con: noches ocupadas, precio por noche, ingresos brutos, gastos operativos y tu pago neto. Siempre con respaldo documental.</p>
+      </div>
+      <div class="trust-item">
+        <i class="ph ph-seal-check"></i>
+        <h3>Sin letra pequeña</h3>
+        <p>Nuestros contratos son claros y simples. Sabes exactamente qué porcentaje nos llevamos, qué gastos cubre cada parte y cómo terminar el acuerdo si lo necesitas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CONTACTO ====== -->
+<section class="contact pad" id="contacto">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-copy">
+        <span class="eyebrow">Hablemos</span>
+        <h2>¿Listo para que tu departamento genere más?</h2>
+        <p>Agenda una llamada gratuita con nuestro equipo. Te haremos una proyección personalizada de rentabilidad para tu propiedad en Surco o San Borja, sin compromiso.</p>
+        <p class="contact-alt">O escríbenos directamente:<br/>
+          <a href="https://wa.me/51?text=Hola%20Rental%20Smart%2C%20quiero%20info" id="waLink"><i class="ph ph-whatsapp-logo"></i> WhatsApp</a> ·
+          <a href="mailto:Rentalsmart.peru@gmail.com">Rentalsmart.peru@gmail.com</a><br/>
+          <span style="opacity:.7">Respondemos en menos de 1 hora.</span></p>
+      </div>
+
+      <form class="contact-form" id="leadForm" novalidate>
+        <div class="form-field">
+          <label for="nombre">Nombre *</label>
+          <input type="text" id="nombre" name="nombre" required autocomplete="name" />
+        </div>
+        <div class="form-field">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+        <div class="form-field">
+          <label for="whatsapp">WhatsApp</label>
+          <input type="tel" id="whatsapp" name="whatsapp" placeholder="+51 ..." autocomplete="tel" />
+        </div>
+        <div class="form-field">
+          <label for="zona">Zona de tu propiedad</label>
+          <select id="zona" name="zona">
+            <option value="Surco">Santiago de Surco</option>
+            <option value="San Borja">San Borja</option>
+            <option value="Casa de playa">Casa de playa</option>
+            <option value="Otra">Otra</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="mensaje">Cuéntanos de tu propiedad</label>
+          <textarea id="mensaje" name="mensaje" placeholder="m², dormitorios, edificio, si está equipado..."></textarea>
+        </div>
+        <!-- honeypot anti-bot -->
+        <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit" class="btn btn-accent" id="submitBtn" style="width:100%; justify-content:center;">Agenda tu llamada gratuita</button>
+        <div class="form-msg" id="formMsg" role="status" aria-live="polite"></div>
+        <p class="form-note">Tus datos se usan solo para contactarte sobre la gestión de tu propiedad.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#top" class="logo">
+        <span class="logo-icon">R<span>S</span></span>
+        <span class="logo-text">rental <b>smart</b></span>
+        <span class="logo-dot"></span>
+      </a>
+      <p class="footer-tag">smart short-term rental management</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Secciones</h4>
+        <a href="#por-que">Por qué Rental Smart</a>
+        <a href="#distintos">Lo que nos distingue</a>
+        <a href="#como">Cómo funciona</a>
+        <a href="#confianza">Confianza</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a href="mailto:Rentalsmart.peru@gmail.com">Rentalsmart.peru@gmail.com</a>
+        <a href="https://wa.me/51" id="waFooter">WhatsApp</a>
+        <span>Surco · San Borja, Lima</span>
+      </div>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> Rental Smart. Todos los derechos reservados.</span>
+    <span class="mono">gestión de alquiler de corta estancia</span>
+  </div>
+</footer>
+
+<script>
+  // Año dinámico
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Menú móvil
+  document.getElementById('navToggle').addEventListener('click', function () {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('#navLinks a').forEach(function (a) {
+    a.addEventListener('click', function () { document.getElementById('navLinks').classList.remove('open'); });
+  });
+
+  // Envío del formulario → Netlify Function
+  var form = document.getElementById('leadForm');
+  var msg = document.getElementById('formMsg');
+  var btn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    msg.className = 'form-msg';
+    msg.textContent = '';
+
+    var data = {
+      nombre: form.nombre.value.trim(),
+      email: form.email.value.trim(),
+      whatsapp: form.whatsapp.value.trim(),
+      zona: form.zona.value,
+      mensaje: form.mensaje.value.trim(),
+      company: form.company.value // honeypot
+    };
+
+    if (!data.nombre || !data.email) {
+      msg.className = 'form-msg err';
+      msg.textContent = 'Por favor completa tu nombre y email.';
+      return;
+    }
+
+    btn.disabled = true;
+    var originalText = btn.textContent;
+    btn.textContent = 'Enviando...';
+
+    try {
+      var res = await fetch('/.netlify/functions/submit-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('bad response');
+      form.reset();
+      msg.className = 'form-msg ok';
+      msg.textContent = '¡Gracias! Hemos recibido tus datos. Te contactamos en menos de 1 hora.';
+    } catch (err) {
+      msg.className = 'form-msg err';
+      msg.innerHTML = 'No pudimos enviar el formulario. Escríbenos a <a href="mailto:Rentalsmart.peru@gmail.com" style="color:var(--terracotta)">Rentalsmart.peru@gmail.com</a>.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
+  });
+</script>
+</body>
+</html>

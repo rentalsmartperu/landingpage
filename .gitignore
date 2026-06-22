@@ -3,3 +3,7 @@
 node_modules/
 .netlify/
 .DS_Store
+
+# Archivo local de claves de despliegue (NUNCA subir)
+rentalsmart-deploy.env
+*deploy.env

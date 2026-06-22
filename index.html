@@ -438,10 +438,18 @@
     }
     .nav-links.open a { color: var(--midnight) !important; }
     .pad { padding: 64px 0; }
-    .hero { min-height: 100svh; }
-    .hero-inner { padding-top: 100px; padding-bottom: 60px; }
-    .hero-stats { position: relative; bottom: auto; right: auto; margin-top: 36px;
-      animation-delay: 1.1s; }
+    .hero { min-height: 100svh; flex-direction: column; align-items: stretch; justify-content: flex-start; }
+    .hero-inner { padding-top: 100px; padding-bottom: 0; }
+    .hero h1 { font-size: 38px; margin-bottom: 18px; }
+    .hero p { font-size: 15px; margin-bottom: 30px; }
+    .hero-stats {
+      position: relative; bottom: auto; right: auto; left: auto;
+      width: 100%; padding: 0 32px; margin-top: 32px; gap: 8px;
+      animation-delay: 1.1s;
+    }
+    .hero-stat { flex: 1 1 0; min-width: 0; padding: 14px 8px; border-radius: 12px; }
+    .hero-stat .num { font-size: 22px; }
+    .hero-stat .label { font-size: 9px; letter-spacing: 0.03em; }
     .hero-dots { display: none; }
     .hero-coords { display: none; }
   }

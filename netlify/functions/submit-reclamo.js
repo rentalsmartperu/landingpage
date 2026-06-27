@@ -99,7 +99,7 @@ exports.handler = async (event) => {
         <p>Tu ${tipoMin} fue registrado con el código <b>N° ${escapeHtml(codigo)}</b>.</p>
         <p>Te responderemos en un plazo máximo de <b>15 días hábiles</b>.</p>
         <table style="font-size:14px;color:#1A2538;border-collapse:collapse">${filas}</table>
-        <p style="color:#7A716A;font-size:12px">RENTAL SMART PERU · rentalsmart.peru@gmail.com</p>
+        <p style="color:#7A716A;font-size:12px">RENTAL SMART PERU · contacto@rentalsmart-peru.com</p>
       </div>`;
 
     const sendEmail = (to, subject, html) =>

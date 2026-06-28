@@ -469,6 +469,28 @@
   .cookie-opt input { width: 16px; height: 16px; accent-color: var(--terracotta); }
   @media (max-width: 560px) { .cookie-actions { width: 100%; } .cookie-btn { flex: 1; } }
 
+  /* ====== Preloader (intro con logo) ====== */
+  #preloader { position: fixed; inset: 0; z-index: 9999; background: var(--midnight);
+    display: flex; align-items: center; justify-content: center; opacity: 1;
+    transition: opacity 0.5s var(--ease-out); }
+  #preloader.hide { opacity: 0; pointer-events: none; }
+  .pl-inner { display: flex; flex-direction: column; align-items: center; }
+  .pl-logo { display: inline-flex; align-items: center; gap: 12px;
+    opacity: 0; transform: scale(0.92);
+    animation: plReveal 0.8s var(--ease-out) 0.15s forwards; }
+  #preloader .logo-icon { width: 54px; height: 54px; border-radius: 12px;
+    background: var(--cream); color: var(--midnight); font-size: 24px; }
+  #preloader .logo-icon span { color: var(--terracotta); }
+  #preloader .logo-text { font-size: 34px; letter-spacing: -0.02em; color: var(--cream); }
+  #preloader .logo-text b { font-weight: 700; }
+  #preloader .logo-dot { width: 8px; height: 8px; margin-bottom: 8px; }
+  .pl-bar { margin-top: 24px; width: 150px; height: 2px; border-radius: 2px;
+    background: rgba(245,240,230,0.15); overflow: hidden; }
+  .pl-bar span { display: block; height: 100%; width: 100%; background: var(--terracotta);
+    transform: scaleX(0); transform-origin: left; animation: plBar 1.15s var(--ease-out) 0.2s forwards; }
+  @keyframes plReveal { to { opacity: 1; transform: scale(1); } }
+  @keyframes plBar { to { transform: scaleX(1); } }
+
   /* ====== FOOTER ====== */
   footer { background: var(--near-black); color: var(--cream); padding: 56px 0 32px; }
   .footer-inner { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
@@ -555,6 +577,36 @@
 </style>
 </head>
 <body>
+
+<!-- ====== PRELOADER (intro con logo) ====== -->
+<div id="preloader" aria-hidden="true">
+  <div class="pl-inner">
+    <div class="pl-logo">
+      <span class="logo-icon">R<span>S</span></span>
+      <span class="logo-text">rental <b>smart</b></span>
+      <span class="logo-dot"></span>
+    </div>
+    <div class="pl-bar"><span></span></div>
+  </div>
+</div>
+<script>
+  (function () {
+    var pl = document.getElementById('preloader');
+    if (!pl) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.documentElement.style.overflow = 'hidden';
+    var hidden = false;
+    function hide() {
+      if (hidden) return; hidden = true;
+      pl.classList.add('hide');
+      document.documentElement.style.overflow = '';
+      setTimeout(function () { if (pl && pl.parentNode) pl.parentNode.removeChild(pl); }, 600);
+    }
+    setTimeout(hide, reduce ? 300 : 1300);          // tiempo del intro
+    window.addEventListener('load', function () { setTimeout(hide, reduce ? 100 : 700); });
+    setTimeout(hide, 4000);                          // failsafe: nunca dejar la web tapada
+  })();
+</script>
 
 <!-- ====== NAV ====== -->
 <nav id="mainNav">

@@ -511,6 +511,14 @@
     font-size: 13px; color: rgba(245,240,230,0.5); }
 
   /* ====== RESPONSIVE ====== */
+  /* Hero ordenado en anchos intermedios y con zoom: indicadores en fila DEBAJO de los botones */
+  @media (max-width: 1200px) {
+    .hero { flex-direction: column; align-items: stretch; justify-content: center; }
+    .hero-inner { padding-bottom: 0; }
+    .hero-stats { position: relative; bottom: auto; right: auto; left: auto;
+      width: 100%; max-width: 720px; padding: 0 32px; margin-top: 32px; }
+  }
+
   @media (max-width: 900px) {
     .cards-3, .steps, .trust-grid, .distinct-grid { grid-template-columns: 1fr; }
     .interiors-inner, .contact-inner { grid-template-columns: 1fr; gap: 36px; }

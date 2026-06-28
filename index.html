@@ -512,11 +512,15 @@
 
   /* ====== RESPONSIVE ====== */
   /* Hero ordenado en anchos intermedios y con zoom: indicadores en fila DEBAJO de los botones */
-  @media (max-width: 1200px) {
-    .hero { flex-direction: column; align-items: stretch; justify-content: center; }
-    .hero-inner { padding-bottom: 0; }
-    .hero-stats { position: relative; bottom: auto; right: auto; left: auto;
-      width: 100%; max-width: 720px; padding: 0 32px; margin-top: 32px; }
+  /* Anchos intermedios y zoom (901–1200px): los KPIs SE MANTIENEN abajo a la derecha
+     (como en escritorio). Alineamos el contenido arriba y reservamos espacio inferior
+     para que los botones nunca alcancen ni tapen los KPIs ni los puntos del carrusel. */
+  @media (max-width: 1200px) and (min-width: 901px) {
+    .hero { align-items: flex-start; }
+    .hero-inner { padding-top: 132px; padding-bottom: 168px; }
+    .hero-stats { right: 24px; bottom: 28px; gap: 10px; }
+    .hero-stat { padding: 13px 16px; }
+    .hero-stat .num { font-size: 24px; }
   }
 
   @media (max-width: 900px) {
